@@ -34,12 +34,14 @@ function phpactor.setup(options)
   vim.schedule(phpactor.check_install)
 
   if config.options.lspconfig.enabled then
-    require("lspconfig").phpactor.setup(vim.tbl_deep_extend("force", {
-      cmd = {
-        config.options.install.bin,
-        "language-server",
-      },
-    }, config.options.lspconfig.options))
+      vim.lsp.config["phpactor"] =  {
+          root_dir = config.options.lspconfig.options.root_dir,
+          cmd = {
+              config.options.install.bin,
+              "language-server",
+          },
+          config.options.lspconfig.options
+      }
   end
 end
 
